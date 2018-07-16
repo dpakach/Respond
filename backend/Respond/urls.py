@@ -28,6 +28,7 @@ urlpatterns = [
     url(r'api/auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'api/core/', include('core.endpoints')),
     url(r'api/$', schemas.get_schema_view()),
+    url(r'^api/', include('user_accounts.urls')),
     url(settings.ADMIN_URL, admin.site.urls),
     url(r'^(?!(api\/)).*', TemplateView.as_view(template_name="index.html")),
 ]
