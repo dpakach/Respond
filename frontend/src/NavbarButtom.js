@@ -6,6 +6,7 @@ import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
 import WarningIcon from "@material-ui/icons/Warning";
 import MessageIcon from "@material-ui/icons/Message";
 import PersonIcon from "@material-ui/icons/Person";
+import { Link } from "react-router-dom";
 
 const styles = {
   root: {
@@ -33,9 +34,15 @@ class BottomNavigationBar extends React.Component {
         showLabels
         className={classes.root}
       >
-        <BottomNavigationAction label="Alerts" icon={<WarningIcon />} />
-        <BottomNavigationAction label="Channels" icon={<MessageIcon />} />
-        <BottomNavigationAction label="Profile" icon={<PersonIcon />} />
+        <Link to="/">
+          <BottomNavigationAction label="Alerts" icon={<WarningIcon />} />
+        </Link>
+        <Link to="/channel">
+          <BottomNavigationAction label="Channels" icon={<MessageIcon />} />
+        </Link>
+        <Link to="/profile">
+          <BottomNavigationAction label="Profile" icon={<PersonIcon />} />
+        </Link>
       </BottomNavigation>
     );
   }

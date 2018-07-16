@@ -49,9 +49,9 @@ const MapWithMarkers = compose(
     defaultClickableIcons={false}
     defaultCenter={props.position}
   >
-    {props.markers.map(marker => (
+    {props.markers.map((marker, id) => (
       <Marker
-        key={marker}
+        key={id}
         position={{
           lat: marker.location.latitude,
           lng: marker.location.longitude
