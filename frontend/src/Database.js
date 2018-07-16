@@ -20,9 +20,23 @@ export class Database {
   fetch_all = () => this.collection.get();
 }
 
-export class IncidentsDB extends Database {
+class IncidentsDB extends Database {
+  components = [];
   constructor() {
     super("incidents");
+    this.syncState();
+    this.components = [];
   }
+  syncState = () => {
+    this.collection.where("status", "==", "verified").onSnapshot(function(doc) {
+      let source = doc.metadata.hasPendingWrites ? "Local" : "Server";
+      this.components && this.components.map(item => item(doc.data()));
+    });
+  };
+
+  syncSubscribe = component => this.components.push(component);
+
   fetch_verified_only = () => this.collection.where("status", "==", "verified");
 }
+
+export const incidents = new IncidentsDB();

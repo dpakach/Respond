@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import { getLocation } from "./Location";
-import { IncidentsDB } from "./Database";
+import { incidents } from "./Database";
 
 const styles = theme => ({
   button: {
@@ -20,11 +20,9 @@ const logPosition = position => {
     reported_on: new Date(),
     reported_by: "AnonUser"
   };
-  let incident = new IncidentsDB();
-  console.log("report:", report);
-  console.log("incident: ", incident);
-  incident.create(report).then(
-    incident.fetch_all().then(querySnapshot => {
+
+  incidents.create(report).then(
+    incidents.fetch_all().then(querySnapshot => {
       querySnapshot.forEach(doc => {
         console.log(doc.data());
       });
