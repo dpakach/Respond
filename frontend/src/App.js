@@ -1,19 +1,19 @@
 import React, { Component } from "react";
 import BottomNavigationBar from "./NavbarButtom.js";
-import AddAlertBtn from "./AddAlertBtn";
+import AddAlertBtn from "./home/AddAlertBtn";
 import Map from "./map/Map";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import Home from "./home/Home";
 
 export class App extends Component {
   render() {
     return (
-      <div>
-        Respond! <Map />
+      <Router>
         <div>
-          {" "}
-          <AddAlertBtn />{" "}
+          <Route exact path="/" component={Home} />
+          <BottomNavigationBar />
         </div>
-        <BottomNavigationBar />
-      </div>
+      </Router>
     );
   }
 }
