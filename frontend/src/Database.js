@@ -25,13 +25,17 @@ class IncidentsDB extends Database {
   constructor() {
     super("incidents");
     this.syncState();
-    this.components = [];
   }
+
   syncState = () => {
-    this.collection.where("status", "==", "verified").onSnapshot(function(doc) {
-      let source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-      this.components && this.components.map(item => item(doc.data()));
-    });
+    let components = this.components;
+    this.collection
+      .where("status", "==", "verified")
+      .onSnapshot(function(querySnapshot) {
+        let data = [];
+        querySnapshot.forEach(doc => data.push(doc.data()));
+        components.forEach(component => component(data));
+      });
   };
 
   syncSubscribe = component => this.components.push(component);
