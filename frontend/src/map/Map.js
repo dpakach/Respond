@@ -66,9 +66,12 @@ export default class Map extends React.PureComponent {
   state = {
     position: null
   };
+
+  refreshMarkers = data => this.setState({ markers: data });
+
   componentWillMount() {
     this.setState({ markers: [] });
-    incidents.syncSubscribe(data => this.setState({ markers: data }));
+    incidents.syncSubscribe(this.refreshMarkers);
   }
 
   componentDidMount() {
