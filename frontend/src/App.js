@@ -7,6 +7,7 @@ import EventDetail from './eventdetail/EventDetail';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 import Home from './home/Home';
 import Channel from './channels/Channel';
+import Channels from './channels/Channels';
 
 export class App extends Component {
   render() {
@@ -18,7 +19,7 @@ export class App extends Component {
               <Router>
                 <div>
                   <Route exact path="/" component={Dashboard} />
-                  <Route path="/channels" component={EventDetail} />
+                  <Route path="/channels" component={Channels} />
                   <Route exact path="/events/:id" component={EventDetail} />
                   <Route path="/events/:id/channel" component={Channel} />
                   <BottomNavigationBar />

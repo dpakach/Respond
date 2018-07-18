@@ -38,7 +38,7 @@ class BottomNavigationBar extends React.Component {
                 <p className="navigation__label">Alerts</p>
               </li>
             </Link>
-            <Link to="/channel">
+            <Link to="/channels">
             <li className="navigation__item">
               <i className="material-icons navigation__icon">email</i>
               <p className="navigation__label">channels</p>
