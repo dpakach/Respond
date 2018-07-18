@@ -5,10 +5,9 @@ import AddAlertBtn from "./AddAlertBtn";
 export default class Home extends React.Component {
   render() {
     return (
-      <div>
-        Respond! <Map />
-        <div>
-          <AddAlertBtn />{" "}
+      <div className="Dashboard__head">
+        <div className="card dashboard__card">
+          <AddAlertBtn />
         </div>
       </div>
     );
