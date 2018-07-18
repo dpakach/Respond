@@ -22,6 +22,10 @@ from django.templatetags.static import static as static_tag
 from django.contrib import admin
 
 from rest_framework import schemas
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
 
 urlpatterns = [
     # Include urls here.
@@ -30,6 +34,8 @@ urlpatterns = [
     url(r'api/$', schemas.get_schema_view()),
     url(r'^api/', include('user_accounts.urls')),
     url(settings.ADMIN_URL, admin.site.urls),
+    url(r'^api/token/$', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    url(r'^api/token/refresh/$', TokenRefreshView.as_view(), name='token_refresh'),
     url(r'^(?!(api\/)).*', TemplateView.as_view(template_name="index.html")),
 ]
 

@@ -244,4 +244,6 @@ APPEND_SLASH = True
 
 AUTH_USER_MODEL = 'user_accounts.User'
 
+ACCOUNT_USER_MODEL_USERNAME_FIELD = 'username'
+
 CORS_ORIGIN_ALLOW_ALL = True
