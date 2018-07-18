@@ -48,6 +48,7 @@ const MapWithMarkers = compose(
     }}
     defaultClickableIcons={false}
     defaultCenter={props.position}
+    center={props.position}
   >
     {props.markers.map((marker, id) => (
       <Marker
@@ -64,7 +65,10 @@ const MapWithMarkers = compose(
 
 export default class Map extends React.PureComponent {
   state = {
-    position: null
+    position: {
+      lat: null,
+      lng: null
+    }
   };
 
   refreshMarkers = data => this.setState({ markers: data });
@@ -74,15 +78,21 @@ export default class Map extends React.PureComponent {
     incidents.syncSubscribe(this.refreshMarkers);
   }
 
+  componentWillUnmount() {
+    incidents.unsubscribe(this.refreshMarkers);
+  }
+
+  setPosition = position => {
+    this.setState({
+      position: {
+        lng: parseFloat(position.coords.longitude),
+        lat: parseFloat(position.coords.latitude)
+      }
+    });
+  };
+
   componentDidMount() {
-    getLocation(position =>
-      this.setState({
-        position: {
-          lng: parseFloat(position.coords.longitude),
-          lat: parseFloat(position.coords.latitude)
-        }
-      })
-    );
+    getLocation(this.setPosition);
     console.log(
       "incidents: ",
       incidents
@@ -99,12 +109,12 @@ export default class Map extends React.PureComponent {
   }
 
   render() {
-    return this.props.position !== null ? (
+    return (
       <MapWithMarkers
         defaultStyles={style}
         markers={this.state.markers}
         position={this.state.position}
       />
-    ) : null;
+    );
   }
 }
