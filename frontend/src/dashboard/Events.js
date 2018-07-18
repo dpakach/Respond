@@ -16,63 +16,63 @@ export default class Events extends Component {
       messages: 4000 
     },
     {
-      id: 1,
-      title: 'lorem Ipsum',
-      description: 'Dolor totam nobis eveniet expedita voluptates aliquid dicta. Suscipit dolorem ratione quasi ipsum vel sapiente minima. Quis perferendis officiis aliquam amet consectetur Voluptate corrupti alias facere tempore accusantium Tempora dignissimos!',
-      casualties: 200,
-      alerts: 2000,
-      messages: 4000 
-    },
-    {
-      id: 1,
-      title: 'lorem Ipsum',
-      description: 'Dolor totam nobis eveniet expedita voluptates aliquid dicta. Suscipit dolorem ratione quasi ipsum vel sapiente minima. Quis perferendis officiis aliquam amet consectetur Voluptate corrupti alias facere tempore accusantium Tempora dignissimos!',
-      casualties: 200,
-      alerts: 2000,
-      messages: 4000 
-    },
-    {
-      id: 1,
-      title: 'lorem Ipsum',
-      description: 'Dolor totam nobis eveniet expedita voluptates aliquid dicta. Suscipit dolorem ratione quasi ipsum vel sapiente minima. Quis perferendis officiis aliquam amet consectetur Voluptate corrupti alias facere tempore accusantium Tempora dignissimos!',
-      casualties: 200,
-      alerts: 2000,
-      messages: 4000 
-    },
-    {
-      id: 1,
-      title: 'lorem Ipsum',
-      description: 'Dolor totam nobis eveniet expedita voluptates aliquid dicta. Suscipit dolorem ratione quasi ipsum vel sapiente minima. Quis perferendis officiis aliquam amet consectetur Voluptate corrupti alias facere tempore accusantium Tempora dignissimos!',
-      casualties: 200,
-      alerts: 2000,
-      messages: 4000 
-    },
-    {
-      id: 1,
-      title: 'lorem Ipsum',
-      description: 'Dolor totam nobis eveniet expedita voluptates aliquid dicta. Suscipit dolorem ratione quasi ipsum vel sapiente minima. Quis perferendis officiis aliquam amet consectetur Voluptate corrupti alias facere tempore accusantium Tempora dignissimos!',
-      casualties: 200,
-      alerts: 2000,
-      messages: 4000 
-    },
-    {
-      id: 1,
-      title: 'lorem Ipsum',
-      description: 'Dolor totam nobis eveniet expedita voluptates aliquid dicta. Suscipit dolorem ratione quasi ipsum vel sapiente minima. Quis perferendis officiis aliquam amet consectetur Voluptate corrupti alias facere tempore accusantium Tempora dignissimos!',
-      casualties: 200,
-      alerts: 2000,
-      messages: 4000 
-    },
-    {
-      id: 1,
-      title: 'lorem Ipsum',
-      description: 'Dolor totam nobis eveniet expedita voluptates aliquid dicta. Suscipit dolorem ratione quasi ipsum vel sapiente minima. Quis perferendis officiis aliquam amet consectetur Voluptate corrupti alias facere tempore accusantium Tempora dignissimos!',
-      casualties: 200,
-      alerts: 2000,
-      messages: 4000 
-    },
-    {
       id: 2,
+      title: 'lorem Ipsum',
+      description: 'Dolor totam nobis eveniet expedita voluptates aliquid dicta. Suscipit dolorem ratione quasi ipsum vel sapiente minima. Quis perferendis officiis aliquam amet consectetur Voluptate corrupti alias facere tempore accusantium Tempora dignissimos!',
+      casualties: 200,
+      alerts: 2000,
+      messages: 4000 
+    },
+    {
+      id: 3,
+      title: 'lorem Ipsum',
+      description: 'Dolor totam nobis eveniet expedita voluptates aliquid dicta. Suscipit dolorem ratione quasi ipsum vel sapiente minima. Quis perferendis officiis aliquam amet consectetur Voluptate corrupti alias facere tempore accusantium Tempora dignissimos!',
+      casualties: 200,
+      alerts: 2000,
+      messages: 4000 
+    },
+    {
+      id: 4,
+      title: 'lorem Ipsum',
+      description: 'Dolor totam nobis eveniet expedita voluptates aliquid dicta. Suscipit dolorem ratione quasi ipsum vel sapiente minima. Quis perferendis officiis aliquam amet consectetur Voluptate corrupti alias facere tempore accusantium Tempora dignissimos!',
+      casualties: 200,
+      alerts: 2000,
+      messages: 4000 
+    },
+    {
+      id: 5,
+      title: 'lorem Ipsum',
+      description: 'Dolor totam nobis eveniet expedita voluptates aliquid dicta. Suscipit dolorem ratione quasi ipsum vel sapiente minima. Quis perferendis officiis aliquam amet consectetur Voluptate corrupti alias facere tempore accusantium Tempora dignissimos!',
+      casualties: 200,
+      alerts: 2000,
+      messages: 4000 
+    },
+    {
+      id: 6,
+      title: 'lorem Ipsum',
+      description: 'Dolor totam nobis eveniet expedita voluptates aliquid dicta. Suscipit dolorem ratione quasi ipsum vel sapiente minima. Quis perferendis officiis aliquam amet consectetur Voluptate corrupti alias facere tempore accusantium Tempora dignissimos!',
+      casualties: 200,
+      alerts: 2000,
+      messages: 4000 
+    },
+    {
+      id: 7,
+      title: 'lorem Ipsum',
+      description: 'Dolor totam nobis eveniet expedita voluptates aliquid dicta. Suscipit dolorem ratione quasi ipsum vel sapiente minima. Quis perferendis officiis aliquam amet consectetur Voluptate corrupti alias facere tempore accusantium Tempora dignissimos!',
+      casualties: 200,
+      alerts: 2000,
+      messages: 4000 
+    },
+    {
+      id: 8,
+      title: 'lorem Ipsum',
+      description: 'Dolor totam nobis eveniet expedita voluptates aliquid dicta. Suscipit dolorem ratione quasi ipsum vel sapiente minima. Quis perferendis officiis aliquam amet consectetur Voluptate corrupti alias facere tempore accusantium Tempora dignissimos!',
+      casualties: 200,
+      alerts: 2000,
+      messages: 4000 
+    },
+    {
+      id: 9,
       title: 'lorem Ipsum',
       description: 'Dolor totam nobis eveniet expedita voluptates aliquid dicta. Suscipit dolorem ratione quasi ipsum vel sapiente minima. Quis perferendis officiis aliquam amet consectetur Voluptate corrupti alias facere tempore accusantium Tempora dignissimos!',
       casualties: 200,
@@ -122,7 +122,7 @@ export default class Events extends Component {
   render() {
     return (
       <div className="list">
-        {this.state.events.map(event => (
+        {this.events.map(event => (
           <Event key={event.id} event={event} />
         ))}
       </div>

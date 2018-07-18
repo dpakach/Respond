@@ -29,25 +29,25 @@ class BottomNavigationBar extends React.Component {
 
     return (
       <div>
-        <div class="navigation">
-          <h1 class="navigation__title">RESPOND</h1>
-          <ul class="navigation__list">
+        <div className="navigation">
+          <h1 className="navigation__title">RESPOND</h1>
+          <ul className="navigation__list">
             <Link to="/">
-              <li class="navigation__item navigation__item--active">
-                <i class="material-icons navigation__icon">warning</i>
-                <p class="navigation__label">Alerts</p>
+              <li className="navigation__item navigation__item--active">
+                <i className="material-icons navigation__icon">warning</i>
+                <p className="navigation__label">Alerts</p>
               </li>
             </Link>
             <Link to="/channel">
-            <li class="navigation__item">
-              <i class="material-icons navigation__icon">email</i>
-              <p class="navigation__label">channels</p>
+            <li className="navigation__item">
+              <i className="material-icons navigation__icon">email</i>
+              <p className="navigation__label">channels</p>
             </li>
             </Link>
             <Link to="/profile">
-            <li class="navigation__item">
-              <i class="material-icons navigation__icon">account_circle</i>
-              <p class="navigation__label">profile</p>
+            <li className="navigation__item">
+              <i className="material-icons navigation__icon">account_circle</i>
+              <p className="navigation__label">profile</p>
             </li>
             </Link>
           </ul>

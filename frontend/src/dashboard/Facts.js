@@ -5,18 +5,18 @@ export default class Event extends Component {
     const {casualties, alerts, messages} = this.props;
     console.log(casualties);
     return (
-      <div class="facts">
-        <div class="fact">
-          <i class="material-icons fact__icon fact__icon--1">trending_up</i>
-          <div class="fact__value">{casualties}</div>
+      <div className="facts">
+        <div className="fact">
+          <i className="material-icons fact__icon fact__icon--1">trending_up</i>
+          <div className="fact__value">{casualties}</div>
         </div>
-        <div class="fact">
-          <i class="material-icons fact__icon fact__icon--2">local_hospital</i>
-          <div class="fact__value">{alerts}</div>
+        <div className="fact">
+          <i className="material-icons fact__icon fact__icon--2">local_hospital</i>
+          <div className="fact__value">{alerts}</div>
         </div>
-        <div class="fact">
-          <i class="material-icons fact__icon fact__icon--3">announcement</i>
-          <div class="fact__value">{messages}</div>
+        <div className="fact">
+          <i className="material-icons fact__icon fact__icon--3">announcement</i>
+          <div className="fact__value">{messages}</div>
         </div>
       </div>
     );

@@ -25,8 +25,8 @@ const MapWithMarkers = compose(
       config.apiKey
     }&v=3.exp&libraries=geometry,drawing,places`,
     loadingElement: <div style={{ height: `100%` }} />,
-    containerElement: <div style={{ height: `100%` }} />,
-    mapElement: <div style={{ height: `60vh` }} />,
+    containerElement: <div style={{height: '100%'}} />,
+    mapElement: <div style={{height: '100%'}} />,
     defaultStyles: style
   }),
   withHandlers({
@@ -101,6 +101,7 @@ export default class Map extends React.PureComponent {
   render() {
     return this.props.position !== null ? (
       <MapWithMarkers
+        className="dashboard__back"
         defaultStyles={style}
         markers={this.state.markers}
         position={this.state.position}
