@@ -2,10 +2,11 @@ import uuid, os, random
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db import models
 from django.conf import settings
+from django.utils import timezone
 from django.contrib.auth.models import BaseUserManager
 
 def upload_posts_media_to(instance, filename):
-    username = instance.user.email
+    username = instance.user.username
     _, file_extension = os.path.splitext(filename)
     filename = str(random.getrandbits(64)) + file_extension
     return f'photos/{username}/{filename}'
@@ -13,14 +14,17 @@ def upload_posts_media_to(instance, filename):
 class UserManager(BaseUserManager):
     use_in_migrations = True
 
-    def _create_user(self, email, password, **kwargs):
+    def _create_user(self, username, email, password, **kwargs):
+        username = username
         email = self.normalize_email(email)
         is_staff = kwargs.pop('is_staff', False)
         is_superuser = kwargs.pop('is_superuser', False)
-        is_active = kwargs.pop('is_active', False)
+        is_active = kwargs.pop('is_active', True)
+        self.date_joined = timezone.now()
         user = self.model(
+            username = username,
             email=email,
-            is_active=True,
+            is_active=is_active,
             is_staff=is_staff,
             is_superuser=is_superuser,
             **kwargs
@@ -29,11 +33,11 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_user(self, email, password=None, **extra_fields):
-        return self._create_user(email, password, **extra_fields)
+    def create_user(self, username, email, password=None, **extra_fields):
+        return self._create_user(username, email, password, **extra_fields)
 
-    def create_superuser(self, email, password, **extra_fields):
-        return self._create_user(email, password, is_staff=True, is_superuser=True, is_active=True, **extra_fields)
+    def create_superuser(self, username, email, password, **extra_fields):
+        return self._create_user(username, email, password, is_staff=True, is_superuser=True, is_active=True, **extra_fields)
 
 
 
@@ -68,6 +72,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = [
         'first_name',
         'last_name',
+        'email',
     ]
 
     def __str__(self):
@@ -99,16 +104,6 @@ class ResetPasswordCode(models.Model):
 
     class Meta:
         default_related_name = 'reset_password_codes'
-
-    def __str__(self):
-        return f'{self.user.email} - {self.code}'
-
-class UserActivationCode(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    code = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True)
-
-    class Meta:
-        default_related_name = 'activation_codes'
 
     def __str__(self):
         return f'{self.user.email} - {self.code}'

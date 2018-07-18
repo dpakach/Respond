@@ -7,16 +7,16 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.decorators import api_view
 from rest_framework.authtoken.models import Token
-from user_accounts.models import UserProfile, User, ResetPasswordCode, UserActivationCode
+from user_accounts.models import UserProfile, User, ResetPasswordCode
 from user_accounts.serializers import (
     UserSerializer,
     UserSerializerCreate,
-    UserSerializerLogin,
     UserSerializerUpdate
 )
 
 # users
 class UserView(APIView):
+    serializer_class = UserSerializer
 
     @staticmethod
     def get(request):
@@ -24,8 +24,8 @@ class UserView(APIView):
         List users
         """
 
-        users = User.objects.all()
-        return Response(UserSerializer(users, many=True).data)
+        user = get_object_or_404(User, id=request.user.id)
+        return Response(UserSerializer(user).data)
 
     @staticmethod
     def post(request):
@@ -37,73 +37,33 @@ class UserView(APIView):
         if serializer.is_valid():
             user = serializer.save()
             user.set_password(serializer.validated_data['password'])
-            user.is_active = False
             user.save()
-            user = get_object_or_404(User, email=request.data.get('email'))
-            code_object = UserActivationCode.objects.create(user=user)
-            code = code_object.code
-            current_site = get_current_site(request)
-            mail_subject = 'Welcome To ProHealth.'
-            message = render_to_string('user_activation.html', {
-                'user': user.email,
-                'domain': current_site.domain,
-                'code': code,
-            })
-            to_email = user.email
-            email = EmailMessage(
-                mail_subject, message, to=[to_email]
-            )
-            email.send()
             UserProfile(user=user).save()
-            DoctorProfile(user=user).save()
             return Response(UserSerializer(user).data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
-# users/{user_id}
-class UserDetail(APIView):
-
     @staticmethod
-    def get(request, user_id):
-        """
-        View individual user
-        """
-
-        user = get_object_or_404(User, pk=user_id)
-        return Response(UserSerializer(user).data)
-
-    @staticmethod
-    def patch(request, user_id):
+    def patch(request,):
         """
         Update authenticated user
         """
 
-        user = get_object_or_404(User, pk=user_id)
+        user = get_object_or_404(User, pk=request.user.id)
         if user != request.user:
             return Response(status=status.HTTP_401_UNAUTHORIZED)
         serializer = UserSerializerUpdate(user, data=request.data, context={'request': request}, partial=True)
         if serializer.is_valid():
             serializer.save()
-            return Response(UserSerializerLogin(serializer.instance).data)
+            return Response(UserSerializer(serializer.instance).data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     @staticmethod
-    def delete(request, user_id):
+    def delete(request):
         """
         Delete user
         """
 
-        user = get_object_or_404(User, pk=user_id)
+        user = get_object_or_404(User, pk=request.user.id)
         user.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-@api_view(['GET'])
-def verify_token(request):
-    try:
-        current_token = request.META.get('HTTP_AUTHORIZATION').split(" ")[1]
-        if current_token in str(Token.objects.all()):
-            return Response('Yes')
-        else:
-            return Response('Token does not exist.', status=status.HTTP_404_NOT_FOUND)
-    except:
-        return Response("No Token.", status=status.HTTP_404_NOT_FOUND)

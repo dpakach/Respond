@@ -1,36 +1,25 @@
 from django.conf.urls import url
 from django.conf.urls import include
 from django.views.generic import TemplateView
-from .views.user import UserView, UserDetail, verify_token
-from .views.login import LoginView
-from .views.logout import LogoutView
-from .views.profile import UserProfileView, UserProfileDetail, DoctorProfileView, DoctorProfileDetail
-from .views.reset_password import ResetPasswordCodeget
+from .views.user import UserView
+from .views.profile import UserProfileView
+from .views.reset_password import ResetPasswordCodeget, ResetPasswordView
 from .views.update_password import UpdatePasswordView
+from .views.profile import UserProfileSerializerUpdate, UserProfileView
 
 from . import views
 
 urlpatterns = [
 
-    # Login / logout
-    url(r'^login/$', LoginView.as_view()),
-    url(r'^logout/$', LogoutView.as_view()),
-
     # Password management
     url(r'^reset-password/$', ResetPasswordCodeget.as_view()),
     url(r'^update-password/$', UpdatePasswordView.as_view()),
+    url(r'^reset-password/(?P<code>[0-9A-Fa-f-]+)/$', ResetPasswordView.as_view(), name='reset_password'),
 
     # UserProfiles
-    url(r'^user-profiles/$', UserProfileView.as_view()),
-    url(r'^user-profiles/(?P<profile_id>[\d]+)$', UserProfileDetail.as_view()),
-
-    # DoctorProfiles
-    url(r'^doctor-profiles/$', DoctorProfileView.as_view()),
-    url(r'^doctor-profiles/(?P<profile_id>[\d]+)$', DoctorProfileDetail.as_view()),
+    url(r'^user/profile/$', UserProfileView.as_view()),
 
     # Users
-    url(r'^users/$', UserView.as_view()),
-    url(r'^users/(?P<user_id>[\d]+)$', UserDetail.as_view()),
-    url(r'^users/verify-token/$',verify_token),
+    url(r'^user/$', UserView.as_view()),
 
 ]

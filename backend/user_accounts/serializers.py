@@ -2,14 +2,14 @@ from django.contrib.auth.password_validation import validate_password
 from rest_framework import serializers
 from rest_framework.authtoken.models import Token
 from user_accounts.models import UserProfile, User
+from rest_framework.parsers import FormParser
 
 class UserSerializer(serializers.ModelSerializer):
     user_profile = serializers.SerializerMethodField()
-    doctor_profile = serializers.SerializerMethodField()
 
     class Meta:
         model = User
-        fields = ('id', 'email', 'first_name', 'last_name', 'gender', 'date_of_birth', 'is_doctor', 'phone', 'user_profile', 'doctor_profile')
+        fields = ('id', 'username', 'email', 'first_name', 'last_name', 'gender', 'date_of_birth', 'is_responder', 'phone', 'user_profile')
 
     @staticmethod
     def get_user_profile(user):
@@ -26,16 +26,7 @@ class UserSerializerCreate(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('email', 'first_name', 'last_name', 'password', 'gender', 'date_of_birth', 'is_doctor', 'phone')
-
-    # def validate(self, data):
-    #     """
-    #     Administrator permissions needed
-    #     """
-
-    #     if not is_administrator(self.context['request'].user):
-    #         raise serializers.ValidationError(constants.PERMISSION_ADMINISTRATOR_REQUIRED)
-    #     return data
+        fields = ('username', 'email', 'first_name', 'last_name', 'password', 'gender', 'date_of_birth', 'is_responder', 'phone')
 
     @staticmethod
     def validate_password(password):
@@ -46,40 +37,21 @@ class UserSerializerCreate(serializers.ModelSerializer):
         validate_password(password)
         return password
 
-
-class UserSerializerLogin(UserSerializer):
-    token = serializers.SerializerMethodField()
-
-    @staticmethod
-    def get_token(user):
-        """
-        Get or create token
-        """
-
-        token, created = Token.objects.get_or_create(user=user)
-        return token.key
-
-    class Meta:
-        model = User
-        fields = ('id', 'email', 'first_name', 'last_name', 'gender', 'date_of_birth', 'is_doctor', 'user_profile', 'doctor_profile', 'token')
-
-
-class UserSerializerUpdate(serializers.ModelSerializer):
-
-    class Meta:
-        model = User
-        fields = ('first_name', 'last_name', 'gender', 'date_of_birth', 'is_doctor')
-
-
 class UserProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = UserProfile
         fields = '__all__'
 
-
 class UserProfileSerializerUpdate(serializers.ModelSerializer):
 
     class Meta:
         model = UserProfile
-        fields = ('profile_photo','photo_doc')
+        fields = ('profile_photo',)
+
+class UserSerializerUpdate(serializers.ModelSerializer):
+
+    class Meta:
+        model = User
+        fields = ('username', 'first_name', 'last_name', 'gender', 'date_of_birth', 'is_responder',)
+
