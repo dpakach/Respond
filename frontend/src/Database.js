@@ -40,6 +40,10 @@ class IncidentsDB extends Database {
 
   syncSubscribe = component => this.components.push(component);
 
+  unsubscribe = component => {
+    this.components = this.components.filter(item => component !== item);
+  };
+
   fetch_verified_only = () => this.collection.where("status", "==", "verified");
 }
 
