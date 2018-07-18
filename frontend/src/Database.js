@@ -33,7 +33,7 @@ class IncidentsDB extends Database {
       .where("status", "==", "verified")
       .onSnapshot(function(querySnapshot) {
         let data = [];
-        querySnapshot.forEach(doc => data.push(doc.data()));
+        querySnapshot.forEach(doc => data.push({...doc.data(), id: doc.id}));
         components.forEach(component => component(data));
       });
   };
