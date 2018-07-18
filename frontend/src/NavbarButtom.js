@@ -52,25 +52,6 @@ class BottomNavigationBar extends React.Component {
             </Link>
           </ul>
         </div>
-        {/*
-        
-      <BottomNavigation
-        value={value}
-        onChange={this.handleChange}
-        showLabels
-        className={classes.root}
-      >
-        <Link to="/">
-          <BottomNavigationAction label="Alerts" icon={<WarningIcon />} />
-        </Link>
-        <Link to="/channel">
-          <BottomNavigationAction label="Channels" icon={<MessageIcon />} />
-        </Link>
-        <Link to="/profile">
-          <BottomNavigationAction label="Profile" icon={<PersonIcon />} />
-        </Link>
-      </BottomNavigation>
-        */}
       </div>
     );
   }

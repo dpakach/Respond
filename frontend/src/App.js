@@ -15,7 +15,6 @@ export class App extends Component {
       <div>
         <div className="container">
           <div className="main-content">
-            <main>
               <Router>
                 <div>
                   <Route exact path="/" component={Dashboard} />
@@ -25,7 +24,6 @@ export class App extends Component {
                   <BottomNavigationBar />
                 </div>
               </Router>
-            </main>
           </div>
         </div>
       </div>
