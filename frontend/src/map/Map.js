@@ -66,8 +66,8 @@ const MapWithMarkers = compose(
 export default class Map extends React.PureComponent {
   state = {
     position: {
-      lat: null,
-      lng: null
+      lat: 23,
+      lng: 83
     }
   };
 
