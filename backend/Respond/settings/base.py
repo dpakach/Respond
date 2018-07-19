@@ -59,6 +59,8 @@ THIRD_PARTY_APPS = [
 LOCAL_APPS = [
     'core.apps.CoreConfig',
     'user_accounts.apps.UserAccountsConfig',
+    'files',
+    'photos',
 ]
 
 # MIDDLEWARE CONFIGURATION
