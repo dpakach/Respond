@@ -8,11 +8,13 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import Home from "./home/Home";
 import LoginOverlay from "./Profile/Login";
 import UserProfile from "./Profile/Profile";
+import messaging from "./messaging";
 
 class ProfileContainer extends Component {
   closeOverlay = () => {
     this.setState({ visible: false });
   };
+
   openOverlay = () => {
     this.setState({ visible: true });
   };
