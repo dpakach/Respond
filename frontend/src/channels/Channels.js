@@ -35,7 +35,6 @@ export default class Channels extends React.Component {
     messages: 4000,
   };
   render() {
-    console.log(this.state.channels);
     return (
       <div>
         <Alerts />

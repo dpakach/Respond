@@ -5,7 +5,6 @@ export default porps => {
 
   return (
     <div>
-      <p>Message</p>
       <p>{message.message}</p>
     </div>
   );
