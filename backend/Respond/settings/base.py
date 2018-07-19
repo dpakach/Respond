@@ -58,6 +58,8 @@ THIRD_PARTY_APPS = [
 # Apps specific for this project go here.
 LOCAL_APPS = [
     'core.apps.CoreConfig',
+    'user_accounts.apps.UserAccountsConfig',
+    'incidents.apps.IncidentsConfig',
 ]
 
 # MIDDLEWARE CONFIGURATION
@@ -240,3 +242,9 @@ REST_FRAMEWORK = {
 }
 
 APPEND_SLASH = True
+
+AUTH_USER_MODEL = 'user_accounts.User'
+
+ACCOUNT_USER_MODEL_USERNAME_FIELD = 'username'
+
+CORS_ORIGIN_ALLOW_ALL = True
