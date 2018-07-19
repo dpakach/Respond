@@ -308,7 +308,7 @@ a {
   .tabs__tab {
     text-align: center;
     font-weight: 300;
-    font-size: 2rem;
+    font-size: 1.5rem;
     border: 1px solid #ccc;
     border-radius: 2px;
     transition: all .3s ease; }

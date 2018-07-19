@@ -47,8 +47,8 @@ export class App extends Component {
                 <div>
                   <Route exact path="/" component={Dashboard} />
                   <Route path="/channels" component={Channels} />
+                  <Route exact path="/events/:id" component={EventDetail} />
                   <Route path="/events/:id/channel" component={Channel} />
-                  <Route path="/events/:id" component={EventDetail} />
                   <Route
                     path="/profile"
                     render={props => <ProfileContainer {...props} />}
