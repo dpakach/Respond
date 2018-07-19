@@ -18,24 +18,37 @@ export default class Messages extends Component {
   }
 
   componentDidMount() {
-    messages
-      .fetch_by_id(this.props.match.params.id)
-      .get()
-      .then(querySnapshot => {
-        let data = [];
-        querySnapshot.forEach(doc => {
-          data.push(doc.data());
+
+    if(this.props.private){
+      messages
+        .fetch_private_by_id(this.props.match.params.id)
+        .get()
+        .then(querySnapshot => {
+          let data = [];
+          querySnapshot.forEach(doc => {
+            data.push(doc.data());
+          });
+          this.setState({messages: data});
         });
-        this.setState({messages: data});
-      });
+    }else {
+      messages
+        .fetch_by_id(this.props.match.params.id)
+        .get()
+        .then(querySnapshot => {
+          let data = [];
+          querySnapshot.forEach(doc => {
+            data.push(doc.data());
+          });
+          this.setState({messages: data});
+        });
+    }
   }
 
   render() {
-    console.log(this.props);
     return (
       <div>
         {this.state.messages && (
-          <div>
+              <div className="messages">
             {this.state.messages.map(m => <Message key={Math.random()} message={m} />)}
           </div>
         )}

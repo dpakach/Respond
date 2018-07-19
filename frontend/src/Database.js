@@ -22,28 +22,47 @@ export class Database {
 
 class MessageDB extends Database {
   components = [];
+  id_array = []
   constructor() {
     super("messages");
     this.syncState();
   }
   syncState = () => {
-    console.log(window.pathnam)
+    let a = this
     let components = this.components;
-    this.collection.orderBy('created_at').
-      onSnapshot(function(querySnapshot) {
+    this.collection.orderBy('created_at')
+
+    // TODO: fix messages by users
+
+      .onSnapshot((querySnapshot) => {
         let data = [];
         querySnapshot.forEach(doc => data.push({...doc.data()}));
-        components.forEach(component => component(data));
-      });
-  };
+        let d  = []
 
-  syncSubscribe = component => this.components.push(component);
+        for(let i =0; i < data.length; i++){
+          let item = data[i];
+          if(this.id_array[i] === item.id){
+            d.push(item);
+          }
+          
+        }
+        
+        components.forEach((component,index) => component(d))
+    });
+  }
+
+  syncSubscribe = (component, id) => {
+    this.components.push(component);
+    this.id_array.push(id);
+  }
 
   unsubscribe = component => {
     this.components = this.components.filter(item => component !== item);
   };
 
-  fetch_by_id = id => this.collection.where('id' , '==', id);
+  fetch_by_id = id => this.collection.where('id' , '==', id).where('private', '==', false);
+
+  fetch_private_by_id = id => this.collection.where('id' , '==', id).where('private', '==', true);
 }
 
 class IncidentsDB extends Database {

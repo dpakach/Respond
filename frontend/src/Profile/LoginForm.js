@@ -45,7 +45,16 @@ class LoginForm extends React.Component {
     axios.post("http://localhost:8000/api/token/", data).then(data => {
       localStorage.setItem("accessToken", data.data.access);
       localStorage.setItem("refreshToken", data.data.refresh);
-      window.location.pathname = '/profile/';
+      axios.get('/api/user/', {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        }
+      }).then(data => {
+        console.log(data);
+        localStorage.setItem('user', JSON.stringify(data.data));
+      }).then(() => {
+        window.location.pathname = '/profile/';
+      })
     });
   };
 
@@ -61,7 +70,7 @@ class LoginForm extends React.Component {
     const { classes } = this.props;
 
     return (
-      <div style={{width: '100%', display: 'block', margin: '0 auto'}}>
+      <div style={{width: '100%', display: 'block', margin: '0 auto'}} onSubmit={this.submitForm}>
         <FormControl className={classNames(classes.margin, classes.textField)}>
           <InputLabel htmlFor="adornment-username">Username</InputLabel>
           <Input
@@ -96,11 +105,12 @@ class LoginForm extends React.Component {
         <Button
           variant="contained"
           color="primary"
+          style={{marginTop: '2rem'}}
+          htmlType="submit"
           className={classes.button}
           onClick={this.submitForm}
         >
-          Send
-          <Icon className={classes.rightIcon}>Login</Icon>
+          Login
         </Button>
       </div>
     );

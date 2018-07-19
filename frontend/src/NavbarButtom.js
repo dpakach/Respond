@@ -27,6 +27,15 @@ class BottomNavigationBar extends React.Component {
     const {classes} = this.props;
     const {value} = this.state;
 
+    const user = JSON.parse(localStorage.getItem('user'));
+    const logged_in = localStorage.getItem('accessToken');
+
+    let is_respondent = false;
+
+    if (user) {
+      is_respondent = user.is_respondent;
+    }
+
     return (
       <div>
         <div className="navigation">
@@ -38,17 +47,35 @@ class BottomNavigationBar extends React.Component {
                 <p className="navigation__label">Alerts</p>
               </li>
             </Link>
+            {logged_in && (
+              <Link to="/add">
+                <li className="navigation__item">
+                  <i className="material-icons navigation__icon">add_alert</i>
+                  <p className="navigation__label">Add Alert</p>
+                </li>
+              </Link>
+            )}
             <Link to="/channels">
-            <li className="navigation__item">
-              <i className="material-icons navigation__icon">email</i>
-              <p className="navigation__label">channels</p>
-            </li>
+              <li className="navigation__item">
+                <i className="material-icons navigation__icon">email</i>
+                <p className="navigation__label">channels</p>
+              </li>
             </Link>
+            {is_respondent && (
+              <Link to="/verify">
+                <li className="navigation__item">
+                  <i className="material-icons navigation__icon">verified_user</i>
+                  <p className="navigation__label">Verify Alerts</p>
+                </li>
+              </Link>
+            )}
             <Link to="/profile">
-            <li className="navigation__item">
-              <i className="material-icons navigation__icon">account_circle</i>
-              <p className="navigation__label">profile</p>
-            </li>
+              <li className="navigation__item">
+                <i className="material-icons navigation__icon">
+                  account_circle
+                </i>
+                <p className="navigation__label">profile</p>
+              </li>
             </Link>
           </ul>
         </div>

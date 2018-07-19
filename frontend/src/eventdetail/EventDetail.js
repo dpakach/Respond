@@ -14,7 +14,7 @@ export default class EventDetail extends Component {
 
           <div className="card detail__card">
               <Event event= {{id: 1}}/>
-              <EventActions />
+              <EventActions  {...this.props}/>
           </div>
         </div>
       </div>
