@@ -117,3 +117,6 @@ build/
 bundles/
 
 assets/
+
+# Config
+backend/incidents/config/*.json

@@ -2,7 +2,6 @@ from django.contrib.auth.password_validation import validate_password
 from rest_framework import serializers
 from rest_framework.authtoken.models import Token
 from user_accounts.models import UserProfile, User
-from rest_framework.parsers import FormParser
 
 class UserSerializer(serializers.ModelSerializer):
     user_profile = serializers.SerializerMethodField()
