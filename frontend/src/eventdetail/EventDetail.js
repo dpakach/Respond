@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import EventActions from './EventActions';
 import Map from '../map/Map';
 import Facts from '../dashboard/Facts';
+import Event from '../dashboard/Event';
 
 export default class EventDetail extends Component {
   render() {
@@ -12,15 +13,7 @@ export default class EventDetail extends Component {
           <Map />
 
           <div className="card detail__card">
-            <div className="list-item">
-              <div className="list-item__title">lorem</div>
-              <div className="list-item__content">
-                Sit nisi eveniet ipsum quaerat repellendus. Facilis consectetur
-                exercitationem aperiam impedit minus Tempora adipisci doloremque
-                praesentium in laudantium.
-              </div>
-
-            </div>
+              <Event event= {{id: 1}}/>
               <EventActions />
           </div>
         </div>

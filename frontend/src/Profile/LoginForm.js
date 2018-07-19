@@ -45,6 +45,7 @@ class LoginForm extends React.Component {
     axios.post("http://localhost:8000/api/token/", data).then(data => {
       localStorage.setItem("accessToken", data.data.access);
       localStorage.setItem("refreshToken", data.data.refresh);
+      window.location.pathname = '/profile/';
     });
   };
 
@@ -60,7 +61,7 @@ class LoginForm extends React.Component {
     const { classes } = this.props;
 
     return (
-      <div>
+      <div style={{width: '100%', display: 'block', margin: '0 auto'}}>
         <FormControl className={classNames(classes.margin, classes.textField)}>
           <InputLabel htmlFor="adornment-username">Username</InputLabel>
           <Input
@@ -70,6 +71,7 @@ class LoginForm extends React.Component {
             onChange={this.handleChange("username")}
           />
         </FormControl>
+        <br />
         <FormControl className={classNames(classes.margin, classes.textField)}>
           <InputLabel htmlFor="adornment-password">Password</InputLabel>
           <Input
@@ -90,6 +92,7 @@ class LoginForm extends React.Component {
             }
           />
         </FormControl>
+        <br />
         <Button
           variant="contained"
           color="primary"

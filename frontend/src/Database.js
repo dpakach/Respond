@@ -20,6 +20,32 @@ export class Database {
   fetch_all = () => this.collection.get();
 }
 
+class MessageDB extends Database {
+  components = [];
+  constructor() {
+    super("messages");
+    this.syncState();
+  }
+  syncState = () => {
+    console.log(window.pathnam)
+    let components = this.components;
+    this.collection.orderBy('created_at').
+      onSnapshot(function(querySnapshot) {
+        let data = [];
+        querySnapshot.forEach(doc => data.push({...doc.data()}));
+        components.forEach(component => component(data));
+      });
+  };
+
+  syncSubscribe = component => this.components.push(component);
+
+  unsubscribe = component => {
+    this.components = this.components.filter(item => component !== item);
+  };
+
+  fetch_by_id = id => this.collection.where('id' , '==', id);
+}
+
 class IncidentsDB extends Database {
   components = [];
   constructor() {
@@ -33,7 +59,7 @@ class IncidentsDB extends Database {
       .where("status", "==", "verified")
       .onSnapshot(function(querySnapshot) {
         let data = [];
-        querySnapshot.forEach(doc => data.push(doc.data()));
+        querySnapshot.forEach(doc => data.push({...doc.data(), id: doc.id}));
         components.forEach(component => component(data));
       });
   };
@@ -48,3 +74,4 @@ class IncidentsDB extends Database {
 }
 
 export const incidents = new IncidentsDB();
+export const messages = new MessageDB();
