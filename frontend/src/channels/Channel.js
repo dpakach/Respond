@@ -5,7 +5,7 @@ import MessageInput from './MessageInput';
 
 export default class Channel extends React.Component {
   state = {
-    public: 'true',
+    public: true,
   };
 
   toggle_tab = () => {

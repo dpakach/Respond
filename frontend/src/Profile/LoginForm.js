@@ -105,11 +105,12 @@ class LoginForm extends React.Component {
         <Button
           variant="contained"
           color="primary"
+          style={{marginTop: '2rem'}}
           htmlType="submit"
           className={classes.button}
           onClick={this.submitForm}
         >
-          Send
+          Login
           <Icon className={classes.rightIcon}>Login</Icon>
         </Button>
       </div>
