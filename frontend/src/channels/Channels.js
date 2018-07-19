@@ -36,22 +36,32 @@ export default class Channels extends React.Component {
   };
   render() {
     return (
-      <div>
-        <Alerts />
-        <div className="list">
-          <h2 className="dashboard__header">Channels</h2>
-          {!this.state.loading && (
-            <div style={{}}>
-              {this.state.channels.map(channel => (
-                <Link to={`/events/${channel.id}/channel`} key={channel.id}>
-                  <div className="list-item" style={{marginBottom: '1rem'}}>
-                    <div className="list-item__title">{'lorem ipsum'}</div>
-                    <Facts facts={this.facts} />
-                  </div>
-                </Link>
-              ))}
+      <div className="section section--login">
+        <div className="tabs">
+          <div className="tabs__header">
+            <div className="tabs__tab">
+              Channels
             </div>
-          )}
+          </div>
+          <div className="tabs__body">
+
+          <div>
+            <div className="list">
+              <h2 className="dashboard__header">Channels</h2>
+              {!this.state.loading && (
+                <div style={{}}>
+                  {this.state.channels.map(channel => (
+                    <Link to={`/events/${channel.id}/channel`} key={channel.id}>
+                      <div className="list-item" style={{marginBottom: '1rem'}}>
+                        <div className="list-item__title">{'lorem ipsum'}</div>
+                        <Facts facts={this.facts} />
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
         </div>
       </div>
     );
