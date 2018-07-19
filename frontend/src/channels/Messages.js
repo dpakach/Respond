@@ -35,7 +35,7 @@ export default class Messages extends Component {
     return (
       <div>
         {this.state.messages && (
-          <div>
+              <div class="messages">
             {this.state.messages.map(m => <Message key={Math.random()} message={m} />)}
           </div>
         )}

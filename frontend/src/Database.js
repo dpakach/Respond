@@ -22,22 +22,27 @@ export class Database {
 
 class MessageDB extends Database {
   components = [];
+  id_array = []
   constructor() {
     super("messages");
     this.syncState();
   }
   syncState = () => {
-    console.log(window.pathnam)
     let components = this.components;
-    this.collection.orderBy('created_at').
-      onSnapshot(function(querySnapshot) {
+    this.collection.orderBy('created_at')
+      .onSnapshot(function(querySnapshot) {
         let data = [];
         querySnapshot.forEach(doc => data.push({...doc.data()}));
-        components.forEach(component => component(data));
+        components.forEach((component,index) => {
+          component(data.filter(item => this.id_array[index] === item.id))
+        });
       });
   };
 
-  syncSubscribe = component => this.components.push(component);
+  syncSubscribe = (component, id) => {
+    this.components.push(component);
+    this.id_array.push(id);
+  }
 
   unsubscribe = component => {
     this.components = this.components.filter(item => component !== item);
