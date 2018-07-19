@@ -7,6 +7,8 @@ import {
   Marker,
   Circle
 } from "react-google-maps";
+import { withRouter } from "react-router-dom";
+
 import style from "./styles";
 import config from "../config";
 
@@ -52,16 +54,21 @@ const MapWithMarkers = compose(
   >
     {props.markers.map((marker, id) => (
       <Marker
-        key={id}
+        key={marker.id}
         position={{
           lat: marker.location.latitude,
           lng: marker.location.longitude
         }}
-        onClick={() => console.log(marker)}
+        onClick={() => {
+          console.log("props: ", props, marker);
+          props.history.push(`/events/${marker.id}`);
+        }}
       />
     ))}
   </GoogleMap>
 ));
+
+let MapWithMarkersRouted = withRouter(MapWithMarkers);
 
 export default class Map extends React.PureComponent {
   state = {
@@ -99,7 +106,7 @@ export default class Map extends React.PureComponent {
       .then(querySnapshot => {
         let data = [];
         querySnapshot.forEach(doc => {
-          data.push(doc.data());
+          data.push({ ...doc.data(), id: doc.id });
         });
         this.setState({ markers: data });
       });
@@ -107,7 +114,7 @@ export default class Map extends React.PureComponent {
 
   render() {
     return (
-      <MapWithMarkers
+      <MapWithMarkersRouted
         className="dashboard__back"
         defaultStyles={style}
         markers={this.state.markers}
@@ -128,7 +135,7 @@ export class MapStatic extends React.PureComponent {
 
   render() {
     return (
-      <MapWithMarkers
+      <MapWithMarkersRouted
         className="dashboard__back"
         defaultStyles={style}
         markers={[this.props.marker]}
