@@ -111,7 +111,6 @@ class LoginForm extends React.Component {
           onClick={this.submitForm}
         >
           Login
-          <Icon className={classes.rightIcon}>Login</Icon>
         </Button>
       </div>
     );

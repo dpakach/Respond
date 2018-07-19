@@ -36,6 +36,7 @@ const styles = theme => ({
 class SignupForm extends React.Component {
   state = {
     password: '',
+    confirm_password: '',
     username: '',
     date_of_birth: '',
     first_name: '',
@@ -49,16 +50,21 @@ class SignupForm extends React.Component {
     let data = {
       username: this.state.username,
       password: this.state.password,
-      date_of_birth: this.state.password,
-      first_name: this.state.password,
-      last_name: this.state.password,
-      email: this.state.password,
-      phone: this.state.password,
-      gender: this.state.password,
+      date_of_birth: this.state.date_of_birth,
+      first_name: this.state.first_name,
+      last_name: this.state.last_name,
+      email: this.state.email,
+      phone: this.state.phone,
+      gender: this.state.gender,
     };
+
+    console.log(data)
 
     axios.post('/api/user/', data).then(data => {
       console.log(data);
+      console.log('created');
+    }).catch(e => {
+      console.log(e);
     });
   };
 
@@ -87,26 +93,49 @@ class SignupForm extends React.Component {
           />
         </FormControl>
         <br />
+        <br />
 
         <FormControl className={classNames(classes.margin, classes.textField)}>
           <InputLabel htmlFor="adornment-first_name">First Name</InputLabel>
           <Input
             id="adornment-first_name"
             type={'people'}
-            value={this.state.username}
+            value={this.state.first_name}
             onChange={this.handleChange('first_name')}
           />
         </FormControl>
-        <br />
         <FormControl className={classNames(classes.margin, classes.textField)}>
           <InputLabel htmlFor="adornment-last_name">Last Name</InputLabel>
           <Input
             id="adornment-last_name"
             type={'people'}
-            value={this.state.username}
+            value={this.state.last_name}
             onChange={this.handleChange('last_name')}
           />
         </FormControl>
+        <br />
+        <br />
+
+        <FormControl className={classNames(classes.margin, classes.textField)}>
+          <InputLabel htmlFor="adornment-email">Email</InputLabel>
+          <Input
+            id="adornment-email"
+            type="email"
+            value={this.state.email}
+            onChange={this.handleChange('email')}
+          />
+        </FormControl>
+        <br />
+        <FormControl className={classNames(classes.margin, classes.textField)}>
+          <InputLabel htmlFor="adornment-email">Phone</InputLabel>
+          <Input
+            id="adornment-phone"
+            type={'people'}
+            value={this.state.phone}
+            onChange={this.handleChange('phone')}
+          />
+        </FormControl>
+        <br />
         <br />
 
         <FormControl className={classNames(classes.margin, classes.textField)}>
@@ -128,15 +157,14 @@ class SignupForm extends React.Component {
             }
           />
         </FormControl>
-        <br />
 
         <FormControl className={classNames(classes.margin, classes.textField)}>
-          <InputLabel htmlFor="adornment-password">confirm Password</InputLabel>
+          <InputLabel htmlFor="adornment-confirm_password">confirm Password</InputLabel>
           <Input
-            id="adornment-password"
+            id="adornment-confirm_password"
             type={this.state.showPassword ? 'text' : 'password'}
             value={this.state.password}
-            onChange={this.handleChange('password2')}
+            onChange={this.handleChange('confirm_password')}
             endAdornment={
               <InputAdornment position="end">
                 <IconButton
@@ -149,15 +177,13 @@ class SignupForm extends React.Component {
             }
           />
         </FormControl>
-
         <br />
-
         <FormControl className={classes.formControl}>
           <InputLabel htmlFor="gender">Gender</InputLabel>
           <Select
             style={{width: '10rem'}}
             value={this.state.gender}
-            onChange={this.handleChange}
+            onChange={this.handleChange('gender')}
             inputProps={{
               name: 'gender',
             }}>
@@ -169,6 +195,7 @@ class SignupForm extends React.Component {
           </Select>
         </FormControl>
 
+        <br />
         <br />
         <TextField
           id="date"
@@ -193,7 +220,6 @@ class SignupForm extends React.Component {
           className={classes.button}
           onClick={this.submitForm}>
             Submit
-          <Icon className={classes.rightIcon}>Login</Icon>
         </Button>
       </div>
     );
