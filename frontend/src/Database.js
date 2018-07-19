@@ -37,18 +37,15 @@ class MessageDB extends Database {
       .onSnapshot((querySnapshot) => {
         let data = [];
         querySnapshot.forEach(doc => data.push({...doc.data()}));
-        console.log(data);
         let d  = []
 
         for(let i =0; i < data.length; i++){
           let item = data[i];
-          console.log(item.id)
           if(this.id_array[i] === item.id){
             d.push(item);
           }
           
         }
-        console.log(d)
         
         components.forEach((component,index) => component(d))
     });
