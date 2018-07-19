@@ -33,6 +33,8 @@ urlpatterns = [
     url(r'api/core/', include('core.endpoints')),
     url(r'api/$', schemas.get_schema_view()),
     url(r'^api/', include('user_accounts.urls')),
+    url(r'api/photos/', include('photos.endpoints')),
+    url(r'api/files/', include('files.endpoints')),
     url(settings.ADMIN_URL, admin.site.urls),
     url(r'^api/token/$', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     url(r'^api/token/refresh/$', TokenRefreshView.as_view(), name='token_refresh'),
