@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
+import React, { Component } from "react";
 
-import {Link} from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 export default class EventActions extends Component {
   render() {
@@ -18,20 +18,24 @@ export default class EventActions extends Component {
             </a>
             <Link to={`/events/122/channel`}>
               <li>
-                <i className="material-icons card__icon card__icon--2">message</i>
+                <i className="material-icons card__icon card__icon--2">
+                  message
+                </i>
                 <p>lorem</p>
               </li>
             </Link>
             <a href="#">
               <li>
-                <i className="material-icons card__icon card__icon--3">home</i>
-                <p>lorem</p>
+                <i className="material-icons card__icon card__icon--3">
+                  touch_app
+                </i>
+                <p>I wanna help</p>
               </li>
             </a>
             <a href="#">
               <li>
-                <i className="material-icons card__icon card__icon--4">home</i>
-                <p>lorem</p>
+                <i className="material-icons card__icon card__icon--4">share</i>
+                <p>I wanna share</p>
               </li>
             </a>
           </ul>

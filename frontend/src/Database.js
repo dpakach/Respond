@@ -27,14 +27,13 @@ class MessageDB extends Database {
     this.syncState();
   }
   syncState = () => {
-    console.log(window.pathnam)
+    console.log(window.pathnam);
     let components = this.components;
-    this.collection.orderBy('created_at').
-      onSnapshot(function(querySnapshot) {
-        let data = [];
-        querySnapshot.forEach(doc => data.push({...doc.data()}));
-        components.forEach(component => component(data));
-      });
+    this.collection.orderBy("created_at").onSnapshot(function(querySnapshot) {
+      let data = [];
+      querySnapshot.forEach(doc => data.push({ ...doc.data() }));
+      components.forEach(component => component(data));
+    });
   };
 
   syncSubscribe = component => this.components.push(component);
@@ -43,7 +42,7 @@ class MessageDB extends Database {
     this.components = this.components.filter(item => component !== item);
   };
 
-  fetch_by_id = id => this.collection.where('id' , '==', id);
+  fetch_by_id = id => this.collection.where("id", "==", id);
 }
 
 class IncidentsDB extends Database {
@@ -59,9 +58,13 @@ class IncidentsDB extends Database {
       .where("status", "==", "verified")
       .onSnapshot(function(querySnapshot) {
         let data = [];
-        querySnapshot.forEach(doc => data.push({...doc.data(), id: doc.id}));
+        querySnapshot.forEach(doc => data.push({ ...doc.data(), id: doc.id }));
         components.forEach(component => component(data));
       });
+  };
+
+  fetch_by_id = id => {
+    return this.collection.doc(id).get();
   };
 
   syncSubscribe = component => this.components.push(component);
