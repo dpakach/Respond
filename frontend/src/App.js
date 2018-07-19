@@ -9,6 +9,8 @@ import Home from "./home/Home";
 import LoginOverlay from "./Profile/Login";
 import UserProfile from "./Profile/Profile";
 import messaging from "./messaging";
+import Channel from './channels/Channel';
+import Channels from './channels/Channels';
 
 class ProfileContainer extends Component {
   closeOverlay = () => {
@@ -43,20 +45,19 @@ export class App extends Component {
       <div>
         <div className="container">
           <div className="main-content">
-            <main>
               <Router>
                 <div>
                   <Route exact path="/" component={Dashboard} />
-                  <Route path="/events/:id" component={EventDetail} />
+                  <Route path="/channels" component={Channels} />
+                  <Route exact path="/events/:id" component={EventDetail} />
+                  <Route path="/events/:id/channel" component={Channel} />
                   <Route
                     path="/profile"
                     render={props => <ProfileContainer {...props} />}
                   />
-
                   <BottomNavigationBar />
                 </div>
               </Router>
-            </main>
           </div>
         </div>
       </div>
