@@ -11,6 +11,7 @@ import UserProfile from "./Profile/Profile";
 import messaging from "./messaging";
 import Channel from "./channels/Channel";
 import Channels from "./channels/Channels";
+import AddAlert from "./addalert/AddAlert";
 import { userdetails } from "./auth/Authentication";
 
 class ProfileContainer extends Component {
@@ -52,6 +53,8 @@ export class App extends Component {
                 <Route path="/channels" component={Channels} />
                 <Route exact path="/events/:id" component={EventDetail} />
                 <Route path="/events/:id/channel" component={Channel} />
+                <Route path="/add" component={AddAlert} />
+                <Route path="/verify" component={AddAlert} />
                 <Route
                   path="/profile"
                   render={props => <ProfileContainer {...props} />}

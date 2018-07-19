@@ -39,7 +39,7 @@ export default class EventDetail extends Component {
 
           <div className="card detail__card">
             <Event event={this.state.eventData} />
-            <EventActions />
+            <EventActions {...this.props} />
           </div>
         </div>
       </div>
