@@ -16,7 +16,7 @@ export default class EventActions extends Component {
                 <p>lorem</p>
               </li>
             </a>
-            <Link to={`/events/122/channel`}>
+            <Link to={`/events/${this.props.match.params.id}/channel`}>
               <li>
                 <i className="material-icons card__icon card__icon--2">message</i>
                 <p>lorem</p>
