@@ -7,10 +7,17 @@ import {incidents} from '../Database';
 import axios from 'axios';
 import config from '../config';
 import TextField from '@material-ui/core/TextField';
+import Snackbar from '@material-ui/core/Snackbar';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
 
 const styles = theme => ({
   button: {
     margin: theme.spacing.unit,
+  },
+  close: {
+    width: theme.spacing.unit * 4,
+    height: theme.spacing.unit * 4,
   },
 });
 
@@ -20,6 +27,14 @@ class AlertButton extends React.Component {
     this.setState({
       [name]: event.target.value,
     });
+  };
+
+  handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    this.setState({open: false});
   };
 
   logPosition = () => {
@@ -48,9 +63,10 @@ class AlertButton extends React.Component {
             },${position.coords.longitude}&key=${config.apiKey}`,
           )
           .then(data => {
-            report.title = data.data.results[0].formatted_address,
+            (report.title = data.data.results[0].formatted_address),
               incidents.create(report).then(() => {
                 this.setState({description: ''});
+                this.setState({open: true});
               });
           });
       });
@@ -83,6 +99,37 @@ class AlertButton extends React.Component {
               className={classes.button}>
               Add Alert
             </Button>
+
+            <Snackbar
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'left',
+              }}
+              open={this.state.open}
+              autoHideDuration={6000}
+              onClose={this.handleClose}
+              ContentProps={{
+                'aria-describedby': 'message-id',
+              }}
+              message={<span id="message-id">Alert Added</span>}
+              action={[
+                <Button
+                  key="undo"
+                  color="secondary"
+                  size="small"
+                  onClick={this.handleClose}>
+                  UNDO
+                </Button>,
+                <IconButton
+                  key="close"
+                  aria-label="Close"
+                  color="inherit"
+                  className={classes.close}
+                  onClick={this.handleClose}>
+                  <CloseIcon />
+                </IconButton>,
+              ]}
+            />
           </div>
         )}
         {!user && <p>Login to add Alerts</p>}

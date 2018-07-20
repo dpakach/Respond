@@ -1,79 +1,87 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from "react";
+import ReactDOM from "react-dom";
 import {
   withScriptjs,
   withGoogleMap,
   GoogleMap,
   Marker,
-  Circle,
-} from 'react-google-maps';
-import style from './styles';
-import config from '../config';
+  Circle
+} from "react-google-maps";
+import { withRouter } from "react-router-dom";
 
-import {getLocation} from '../Location';
-import {incidents} from '../Database';
+import style from "./styles";
+import config from "../config";
 
-const {compose, withProps, withHandlers} = require('recompose');
+import { getLocation } from "../Location";
+import { incidents } from "../Database";
+
+const { compose, withProps, withHandlers } = require("recompose");
 
 const {
-  MarkerClusterer,
-} = require('react-google-maps/lib/components/addons/MarkerClusterer');
+  MarkerClusterer
+} = require("react-google-maps/lib/components/addons/MarkerClusterer");
 
 const MapWithMarkers = compose(
   withProps({
     googleMapURL: `https://maps.googleapis.com/maps/api/js?key=${
       config.apiKey
     }&v=3.exp&libraries=geometry,drawing,places`,
-    loadingElement: <div style={{height: `100%`}} />,
-    containerElement: <div style={{height: '70%'}} />,
-    mapElement: <div style={{height: '100%'}} />,
-    defaultStyles: style,
+    loadingElement: <div style={{ height: `100%` }} />,
+    containerElement: <div style={{ height: "100%" }} />,
+    mapElement: <div style={{ height: "100%" }} />,
+    defaultStyles: style
   }),
   withHandlers({
     onMarkerClustererClick: () => markerClusterer => {
       const clickedMarkers = markerClusterer.getMarkers();
       // console.log(`Current clicked markers length: ${clickedMarkers.length}`);
       // console.log(clickedMarkers);
-    },
+    }
   }),
   withScriptjs,
-  withGoogleMap,
+  withGoogleMap
 )(props => (
   <GoogleMap
-    defaultZoom={3}
+    defaultZoom={props.zoom}
     defaultStyles={style}
     defaultOptions={{
       styles: style,
-      disableDefaultUI: true,
+      disableDefaultUI: true
     }}
     defaultClickableIcons={false}
     defaultCenter={props.position}
-    center={props.position}>
+    center={props.position}
+  >
     {props.markers.map((marker, id) => (
       <Marker
-        key={id}
+        key={marker.id}
         position={{
           lat: marker.location.latitude,
-          lng: marker.location.longitude,
+          lng: marker.location.longitude
         }}
-        onClick={() => console.log(marker)}
+        onClick={() => {
+          console.log("props: ", props, marker);
+          props.history.push(`/events/${marker.id}`);
+        }}
       />
     ))}
   </GoogleMap>
 ));
 
+let MapWithMarkersRouted = withRouter(MapWithMarkers);
+
 export default class Map extends React.PureComponent {
   state = {
     position: {
-      lat: 23,
-      lng: 83,
-    },
+      lat: 28.2538926,
+      lng: 83.97422173
+    }
   };
 
-  refreshMarkers = data => this.setState({markers: data});
+  refreshMarkers = data => this.setState({ markers: data });
 
   componentWillMount() {
-    this.setState({markers: []});
+    this.setState({ markers: [] });
     incidents.syncSubscribe(this.refreshMarkers);
   }
 
@@ -85,8 +93,8 @@ export default class Map extends React.PureComponent {
     this.setState({
       position: {
         lng: parseFloat(position.coords.longitude),
-        lat: parseFloat(position.coords.latitude),
-      },
+        lat: parseFloat(position.coords.latitude)
+      }
     });
   };
 
@@ -98,19 +106,41 @@ export default class Map extends React.PureComponent {
       .then(querySnapshot => {
         let data = [];
         querySnapshot.forEach(doc => {
-          data.push(doc.data());
+          data.push({ ...doc.data(), id: doc.id });
         });
-        this.setState({markers: data});
+        this.setState({ markers: data });
       });
   }
 
   render() {
     return (
-      <MapWithMarkers
+      <MapWithMarkersRouted
         className="dashboard__back"
         defaultStyles={style}
         markers={this.state.markers}
         position={this.state.position}
+        zoom={11}
+      />
+    );
+  }
+}
+
+export class MapStatic extends React.PureComponent {
+  state = {
+    position: {
+      lat: 28.2538926,
+      lng: 83.97422173
+    }
+  };
+
+  render() {
+    return (
+      <MapWithMarkersRouted
+        className="dashboard__back"
+        defaultStyles={style}
+        markers={[this.props.marker]}
+        position={this.props.position}
+        zoom={12}
       />
     );
   }

@@ -1,6 +1,8 @@
 import React from 'react';
+import moment from 'moment';
 
-var user = {
+var user = JSON.parse(localStorage.getItem('user'));
+var test = {
   basicInfo: {
     name: 'Jane Doe',
     gender: 'Female',
@@ -46,14 +48,34 @@ class MainPanel extends React.Component {
             </div>
             <div className="tabs__body">
               <div className="top">
-                <Avatar image={info.photo} width={100} height={100} />
-                <h2>{info.name}</h2>
-                <h3>{info.location}</h3>
+                <Avatar
+                  image="https://randomuser.me/api/portraits/men/71.jpg"
+                  width={100}
+                  height={100}
+                />
+                <div style={{marginTop: '2rem'}}>
+                  <h2>
+                    {info.first_name} {info.last_name}
+                  </h2>
+                  <h3>
+                    @{info.username}
+                    {'     '}
+                    <a
+                      onClick={() => {
+                        localStorage.clear();
+                        window.location.pathname = '/profile/';
+                      }}
+                      style={{cursor: 'pointer'}}
+                    >
+                      logout
+                    </a>
+                  </h3>
 
-                <hr />
-                <p>
-                  {info.gender} | {info.birthday}
-                </p>
+                  <h3>{info.location}</h3>
+
+                  <hr />
+                  <p>{info.gender}</p>
+                </div>
               </div>
 
               <div className="bottom">
@@ -72,7 +94,7 @@ export default class UserProfile extends React.Component {
   render() {
     return (
       <div id="user-profile">
-        <MainPanel info={user.basicInfo} />
+        <MainPanel info={user} />
       </div>
     );
   }

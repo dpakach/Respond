@@ -1,19 +1,19 @@
-import React, {Component} from 'react';
+import React, { Component } from "react";
 
 export default class Event extends Component {
   render() {
-    const {casualties, alerts, messages} = this.props.facts;
+    const { casualties, donation, messages } = this.props.facts;
     return (
       <div className="facts">
         <div className="fact">
-          <i className="material-icons fact__icon fact__icon--1">trending_up</i>
+          <i className="material-icons fact__icon fact__icon--1">accessible</i>
           <div className="fact__value">{casualties}</div>
         </div>
         <div className="fact">
           <i className="material-icons fact__icon fact__icon--2">
-            local_hospital
+            monetization_on
           </i>
-          <div className="fact__value">{alerts}</div>
+          <div className="fact__value">{donation}</div>
         </div>
         <div className="fact">
           <i className="material-icons fact__icon fact__icon--3">

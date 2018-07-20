@@ -24,14 +24,32 @@ export default class MessageInput extends React.Component {
     form_data.user_id = user.id;
     form_data.created_at = moment().format();
 
-    if(this.props.private){
-      form_data.private = true
-    }else{
-      form_data.private = false
+    if (this.props.private) {
+      form_data.private = true;
+    } else {
+      form_data.private = false;
     }
-    messages.create(form_data).then(this.setState({message: ''}));
-  };
+    messages
+      .create(form_data)
+      .then(
 
+        messages
+          .fetch_all()
+          .then(querySnapshot => {
+            this.setState({message: ''});
+            querySnapshot.forEach(doc => {
+              console.log(doc.data());
+            });
+            this.props.refresh();
+          })
+          .catch(e => {
+            console.log(e);
+          }),
+      )
+      .catch(e => {
+        console.log(e);
+      });
+  };
 
   render() {
     return (
@@ -44,7 +62,10 @@ export default class MessageInput extends React.Component {
             style={{width: '100%'}}
             onChange={this.handleChange}
           />
-          <Button variant="outlined" color="primary">
+          <Button
+            variant="outlined"
+            color="primary"
+            onClick={this.handleSubmit}>
             Submit
           </Button>
         </div>

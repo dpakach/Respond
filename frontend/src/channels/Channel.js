@@ -32,6 +32,10 @@ export default class Channel extends React.Component {
     }
   }
 
+  refresh = () => {
+    this.forceUpdate();
+  }
+
   render() {
     const logged_in = localStorage.getItem('accessToken');
     const user = JSON.parse(localStorage.getItem('user'));
@@ -59,7 +63,7 @@ export default class Channel extends React.Component {
               {this.state.public && (
                 <div className="tabs__content">
                   <Messages {...this.props} />
-                  {logged_in && <MessageInput {...this.props} />}
+                  {logged_in && <MessageInput  refresh={this.refresh} {...this.props} />}
                 </div>
               )}
             </div>
@@ -67,7 +71,7 @@ export default class Channel extends React.Component {
               {!this.state.public && !is_responder && (
                 <div className="tabs__content">
                   <Messages {...this.props} private={true} />
-                  {logged_in && <MessageInput {...this.props} private={true} />}
+                  {logged_in && <MessageInput refresh={this.refresh} {...this.props} private={true} />}
                 </div>
               )}
             </div>

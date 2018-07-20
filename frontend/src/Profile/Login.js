@@ -52,7 +52,7 @@ export default class LoginOverlay extends React.Component {
                 </div>
                 <div>
               {!this.state.login && 
-                <SignupForm />
+                <SignupForm toggle={this.toggle_tab}/>
               }
                 </div>
               </div>
