@@ -32,8 +32,8 @@ class BottomNavigationBar extends React.Component {
 
     let is_responder = false;
 
-    if (user) {
-      is_responder = user.is_respondent;
+    if (user && user.is_responder) {
+      is_responder = user.is_responder;
     }
 
     const getClassName = (val) => {
@@ -71,7 +71,9 @@ class BottomNavigationBar extends React.Component {
               </li>
             </Link>
 
-            {JSON.parse(localStorage.getItem('user')).is_responder && (
+            {
+              JSON.parse(localStorage.getItem('user')) &&
+              JSON.parse(localStorage.getItem('user')).is_responder && (
               <Link to="/verify">
                 <li className={getClassName("verify")}>
                   <i className="material-icons navigation__icon">verified_user</i>

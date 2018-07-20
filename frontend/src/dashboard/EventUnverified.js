@@ -21,7 +21,7 @@ export default class Events extends Component {
 
   componentDidMount() {
     incidents
-      .fetch_verified_only()
+      .fetch_unverified_only()
       .get()
       .then(querySnapshot => {
         let data = [];
@@ -30,6 +30,12 @@ export default class Events extends Component {
         });
         this.setState({events: data});
       });
+  }
+
+  verify = (event) => {
+    incidents.collection.doc(event.id).set({
+      ...event, status: 'verified'
+    }) 
   }
 
   render() {
@@ -47,7 +53,11 @@ export default class Events extends Component {
                 {this.state.events.map(event => (
                   <div>
                     <Event key={event.id} event={event} />
-                    <button onClick={() => {}}>verify</button>
+
+                    {
+                      !(event.status !== 'verified') &&
+                      <button onClick={this.verify(event)}>verify</button>
+                    }
                   </div>
                 ))}
               </div>
