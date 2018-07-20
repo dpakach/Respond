@@ -22,47 +22,49 @@ export class Database {
 
 class MessageDB extends Database {
   components = [];
-  id_array = []
+  id_array = [];
   constructor() {
     super("messages");
     this.syncState();
   }
   syncState = () => {
-    let a = this
+    let a = this;
     let components = this.components;
-    this.collection.orderBy('created_at')
+    this.collection
+      .orderBy("created_at")
 
-    // TODO: fix messages by users
+      // TODO: fix messages by users
 
-      .onSnapshot((querySnapshot) => {
+      .onSnapshot(querySnapshot => {
         let data = [];
-        querySnapshot.forEach(doc => data.push({...doc.data()}));
-        let d  = []
+        querySnapshot.forEach(doc => data.push({ ...doc.data() }));
+        let d = [];
 
-        for(let i =0; i < data.length; i++){
+        for (let i = 0; i < data.length; i++) {
           let item = data[i];
-          if(this.id_array[i] === item.id){
+          if (this.id_array[i] === item.id) {
             d.push(item);
           }
-          
         }
-        
-        components.forEach((component,index) => component(d))
-    });
-  }
+
+        components.forEach((component, index) => component(d));
+      });
+  };
 
   syncSubscribe = (component, id) => {
     this.components.push(component);
     this.id_array.push(id);
-  }
+  };
 
   unsubscribe = component => {
     this.components = this.components.filter(item => component !== item);
   };
 
-  fetch_by_id = id => this.collection.where('id' , '==', id).where('private', '==', false);
+  fetch_by_id = id =>
+    this.collection.where("id", "==", id).where("private", "==", false);
 
-  fetch_private_by_id = id => this.collection.where('id' , '==', id).where('private', '==', true);
+  fetch_private_by_id = id =>
+    this.collection.where("id", "==", id).where("private", "==", true);
 }
 
 class IncidentsDB extends Database {
@@ -78,9 +80,13 @@ class IncidentsDB extends Database {
       .where("status", "==", "verified")
       .onSnapshot(function(querySnapshot) {
         let data = [];
-        querySnapshot.forEach(doc => data.push({...doc.data(), id: doc.id}));
+        querySnapshot.forEach(doc => data.push({ ...doc.data(), id: doc.id }));
         components.forEach(component => component(data));
       });
+  };
+
+  fetch_by_id = id => {
+    return this.collection.doc(id).get();
   };
 
   syncSubscribe = component => this.components.push(component);
