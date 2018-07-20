@@ -97,7 +97,7 @@ class IncidentsDB extends Database {
 
   fetch_verified_only = () => this.collection.where("status", "==", "verified");
   
-  fetch_unverified_only = () => this.collection.where("reported_by", "==", "dpak");
+  fetch_unverified_only = () => this.collection.where("status", "!=", "verified");
 }
 
 export const incidents = new IncidentsDB();

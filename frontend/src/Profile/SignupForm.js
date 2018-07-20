@@ -38,7 +38,6 @@ class SignupForm extends React.Component {
     password: '',
     confirm_password: '',
     username: '',
-    date_of_birth: '',
     first_name: '',
     last_name: '',
     email: '',
@@ -50,7 +49,6 @@ class SignupForm extends React.Component {
     let data = {
       username: this.state.username,
       password: this.state.password,
-      date_of_birth: this.state.date_of_birth,
       first_name: this.state.first_name,
       last_name: this.state.last_name,
       email: this.state.email,
@@ -63,6 +61,7 @@ class SignupForm extends React.Component {
     axios.post('/api/user/', data).then(data => {
       console.log(data);
       console.log('created');
+      this.props.toggle();
     }).catch(e => {
       console.log(e);
     });
@@ -196,21 +195,6 @@ class SignupForm extends React.Component {
         </FormControl>
 
         <br />
-        <br />
-        <TextField
-          id="date"
-          label="Date of Birth"
-          name="date_of_birth"
-          type="date"
-          defaultValue="2017-05-24"
-          value={this.state.date_of_birth}
-          handleChange={this.handleChange('date_of_birth')}
-          className={classes.textField}
-          InputLabelProps={{
-            shrink: true,
-          }}
-        />
-
         <br />
         <Button
           variant="contained"

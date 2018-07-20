@@ -77,7 +77,7 @@ export default class Channels extends React.Component {
                             <div className="list-item__title">
                               {channel.title}
                             </div>
-                            <div className="list-item__description">
+                            <div className="list-item__description" style={{color: 'black'}}>
                               {channel.description}
                             </div>
                             <Facts facts={channel.facts} />

@@ -6,6 +6,7 @@ import {incidents} from '../Database';
 
 export default class Events extends Component {
   events = [{}];
+  state = {events: []};
 
   state = {
     position: null,
@@ -19,16 +20,8 @@ export default class Events extends Component {
   }
 
   componentDidMount() {
-    getLocation(position =>
-      this.setState({
-        position: {
-          lng: parseFloat(position.coords.longitude),
-          lat: parseFloat(position.coords.latitude),
-        },
-      }),
-    );
     incidents
-      .fetch_unverified_only()
+      .fetch_verified_only()
       .get()
       .then(querySnapshot => {
         let data = [];
@@ -42,9 +35,25 @@ export default class Events extends Component {
   render() {
     console.log(this.state.events);
     return (
-      <div className="list">
-        {this.state.events.map(event => <Event key={event.id} event={event} />)}
-      </div>
+        <div className="section section--login">
+          <div className="tabs">
+            <div className="tabs__header">
+              <div className="tabs__tab">
+                <h2>Verify Incidents</h2>
+              </div>
+            </div>
+            <div className="tabs__body">
+              <div className="list">
+                {this.state.events.map(event => (
+                  <div>
+                    <Event key={event.id} event={event} />
+                    <button onClick={() => {}}>verify</button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
     );
   }
 }
